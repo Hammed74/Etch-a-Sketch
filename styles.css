@@ -19,4 +19,17 @@
 
  }
 
+.input-field{
+    display: flex;
+    width: auto;
+    margin: 30px auto;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
 
+.color{
+    width: 150px;
+    height: 21px;
+    padding: 3px;
+}
