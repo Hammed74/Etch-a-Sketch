@@ -1,19 +1,15 @@
 const screen = document.querySelector(".screen");
-const button = document.getElementById("button1");
+const blackButton = document.getElementById("black");
 const colorButton = document.querySelector(".color");
 const erase = document.querySelector(".erase");
+const buttons = document.querySelectorAll(".button");
 
 makeGrid(16);
-let isMouseDown = false
+let isMouseDown = false;
 
-button.addEventListener("click", function () {
-  let txt1 = document.getElementById("textbox");
-  userInput = txt1.value;
-  if (userInput > 100 || userInput < 1) {
-    alert(" Only Enter Numbers Between 100 And 1");
-  } else {
-    makeGrid(userInput);
-  }
+slider.addEventListener("input", function () {
+  let sliderValue = slider.value;
+  makeGrid(sliderValue);
 });
 
 function makeGrid(userInput) {
@@ -27,8 +23,11 @@ function makeGrid(userInput) {
     screen.appendChild(box);
 
     box.addEventListener("mousedown", function () {
+      const randomColor = getRandomColor();
       isMouseDown = true;
-      if (erase.classList.contains("active")) {
+      if (colorButton.classList.contains("active")) {
+        box.style.backgroundColor = randomColor;
+      } else if (erase.classList.contains("active")) {
         box.style.backgroundColor = "white";
       } else {
         box.style.backgroundColor = "black";
@@ -36,8 +35,11 @@ function makeGrid(userInput) {
     });
 
     box.addEventListener("mousemove", function () {
+      const randomColor = getRandomColor();
       if (isMouseDown) {
-        if (erase.classList.contains("active")) {
+        if (colorButton.classList.contains("active")) {
+          box.style.backgroundColor = randomColor;
+        } else if (erase.classList.contains("active")) {
           box.style.backgroundColor = "white";
         } else {
           box.style.backgroundColor = "black";
@@ -50,59 +52,40 @@ function makeGrid(userInput) {
     });
   }
 }
-function makeColorGrid(userInput) {
-  let boxSize = userInput * userInput;
-  screen.innerHTML = "";
-  for (i = 0; i < boxSize; i++) {
-    const box = document.createElement("div");
-    box.classList.add("box");
-    box.style.width = `${640 / userInput}px`;
-    box.style.height = `${640 / userInput}px`;
-    const randomColor = getRandomColor();
-    screen.appendChild(box);
 
-    box.addEventListener("mousedown", function () {
-      isMouseDown = true;
-      if (erase.classList.contains("active")) {
-        box.style.backgroundColor = "white";
-      } else {
-        box.style.backgroundColor = randomColor;
-      }
+blackButton.addEventListener("click", function () {
+    buttons.forEach(button =>{
+        button.classList.remove("active");
+        button.style.background = ""
+        button.style.backgroundColor = ""
     });
-
-    box.addEventListener("mousemove", function () {
-      if (isMouseDown) {
-        if (erase.classList.contains("active")) {
-          box.style.backgroundColor = "white";
-        } else {
-          box.style.backgroundColor = randomColor;
-        }
-      }
-    });
-
-    box.addEventListener("mouseup", function () {
-      isMouseDown = false;
-    });
-  }
-}
+        blackButton.classList.add("active");
+        blackButton.style.backgroundColor = "black"
+        blackButton.style.color = "white"
+});
+erase.addEventListener("click", function () {
+  buttons.forEach((button) => {
+    button.classList.remove("active");
+    button.style.backgroundColor = "";
+    button.style.background = "";
+    button.style.color = "black";
+  });
+  erase.classList.add("active");
+  erase.style.backgroundColor = "black";
+  erase.style.color = "white";
+});
 
 colorButton.addEventListener("click", function () {
-  txt1 = document.getElementById("textbox");
-  userInput = txt1.value;
-  makeColorGrid(userInput);
+  buttons.forEach((button) => {
+    button.classList.remove("active");
+    button.style.backgroundColor = "";
+    button.style.color = "black";
+  });
+
+  colorButton.classList.add("active");
+  colorButton.style.background = "black";
+  colorButton.style.color = "white";
 });
-
-erase.addEventListener("click", function () {
-  const isActive = erase.classList.toggle("active");
-
-    if (isActive) {
-    erase.style.backgroundColor = "pink";
-  } else{
-  erase.style.backgroundColor = "white"
-  }
-
-});
-
 
 function getRandomColor() {
   const letters = "0123456789ABCDEF"; // Hexadecimal characters
