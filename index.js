@@ -3,7 +3,11 @@ const blackButton = document.getElementById("black");
 const colorButton = document.querySelector(".color");
 const erase = document.querySelector(".erase");
 const buttons = document.querySelectorAll(".button");
-const clearButton = document.querySelector(".clear")
+const clearButton = document.querySelector(".clear");
+
+blackButton.classList.add("active");
+blackButton.style.backgroundColor = "black";
+blackButton.style.color = "white";
 
 makeGrid(16);
 let isMouseDown = false;
@@ -52,21 +56,21 @@ function makeGrid(userInput) {
       isMouseDown = false;
     });
     clearButton.addEventListener("click", function () {
-      box.style.backgroundColor = ""
+      box.style.backgroundColor = "";
     });
   }
-}
+  }
 
 blackButton.addEventListener("click", function () {
-    buttons.forEach(button =>{
-        button.classList.remove("active");
-        button.style.background = ""
-        button.style.backgroundColor = ""
-        button.style.color = ""
-    });
-        blackButton.classList.add("active");
-        blackButton.style.backgroundColor = "black"
-        blackButton.style.color = "white"
+  buttons.forEach((button) => {
+    button.classList.remove("active");
+    button.style.background = "";
+    button.style.backgroundColor = "";
+    button.style.color = "";
+  });
+  blackButton.classList.add("active");
+  blackButton.style.backgroundColor = "black";
+  blackButton.style.color = "white";
 });
 erase.addEventListener("click", function () {
   buttons.forEach((button) => {
@@ -91,7 +95,6 @@ colorButton.addEventListener("click", function () {
   colorButton.style.background = "black";
   colorButton.style.color = "white";
 });
-
 
 function getRandomColor() {
   const letters = "0123456789ABCDEF"; // Hexadecimal characters
