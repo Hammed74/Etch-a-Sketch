@@ -55,11 +55,17 @@ function makeGrid(userInput) {
     box.addEventListener("mouseup", function () {
       isMouseDown = false;
     });
-    clearButton.addEventListener("click", function () {
-      box.style.backgroundColor = "";
-    });
   }
-  }
+      clearButton.addEventListener("click", function () {
+      const boxes = document.querySelectorAll(".box");
+      boxes.forEach((box) => {
+     box.style.backgroundColor = "";
+  
+   });
+  })
+}
+
+
 
 blackButton.addEventListener("click", function () {
   buttons.forEach((button) => {
